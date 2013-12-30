@@ -44,11 +44,18 @@ function demofunc.PowerBuff()
 	}
 for buff in pairs(buffList) do
         if UnitBuff("player", buff) then
+        	print("|cff0070dd I have a Proc !!!!")
             return true end
    		return false
     end			
 end
 
+function demofunc.human()
+	if GetShapeshiftForm("player") == 0
+	then 
+	return true end
+   	return false
+end
 
 
 ProbablyEngine.library.register("demofunc", demofunc)
