@@ -1,0 +1,9 @@
+## Interface: 50400
+## Title: Probably - latitude
+## Notes: ProbablyEngine Custom Demonology Warlock
+## Dependencies: Probably
+
+## Libs
+lib.lua
+## rotation
+rotation.lua
