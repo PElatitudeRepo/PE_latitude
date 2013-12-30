@@ -1,7 +1,7 @@
 -- ProbablyEngine Rotation Packager
 -- Custom Demonology Warlock Rotation
 -- Created on Dec 26th 2013 2:20 pm
-ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0AWarlock-Demonology|r]", {
+ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0AWarlock-Demonology BETA|r]", {
 
 --Mana Management
 { "Life Tap", { "player.mana < 30", "player.health > 70", }},
