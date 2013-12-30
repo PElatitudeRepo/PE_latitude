@@ -44,8 +44,7 @@ function demofunc.PowerBuff()
 	}
 for buff in pairs(buffList) do
         if UnitBuff("player", buff) then
-        	print("|cff0070dd I have a Proc !!!!")
-            return true end
+       		return true end
    		return false
     end			
 end
@@ -57,5 +56,12 @@ function demofunc.human()
    	return false
 end
 
-
+function demofunc.GuldanDoubleCharges()
+	local GulCharges = select(1,GetSpellCharges(105174))
+	if GulCharges == nil then GulCharge = 0 end
+		if GulCharges == 2 then 
+			return true end
+   	return false
+end
+--print("|cff0070dd I have a Proc !!!!")
 ProbablyEngine.library.register("demofunc", demofunc)

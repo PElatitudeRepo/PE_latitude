@@ -3,9 +3,14 @@
 -- Created on Dec 26th 2013 2:20 pm
 ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0AWarlock-Demonology BETA|r]", {
 
+{ "test",	"@demofunc.GuldanDoubleCharges()" },
 
+------------- Guld'an logic when x2 charges (pull secquence, or, after long meta transfo -------
+--first charges
+--wait shadowflame debuff 5s fade to cast last charges
 
 -- Soulstone
+
 { "20707", { 
 		"!mouseover.alive",
 		"mouseover.friend",
@@ -22,6 +27,9 @@ ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0
 { "33702"},									-- Racial
 { "#gloves" }, 								-- gloves
 { "113861"},								-- dark soul dès que up
+--{ "18540", "modifier.lcontrol" }			-- Summon Doomguard
+{ "119914"},								-- Commande Demon (Aoe)
+
 
 --Rotation Shared
 
@@ -54,8 +62,8 @@ ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0
 
 ------ Meta ---------
 { "103958", 	{ "!player.buff(103958)", "player.demonicfury >= 950" }}, 
-{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 450", "player.buff(103958)", "!@demofunc.PowerBuff()" }},	    -- Cancel Meta at 450 fury if no proc/temp Buff
-{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 100", "player.buff(103958)", "@demofunc.PowerBuff()" }},	        -- Keep Meta Form until we finish all temps Proc
+{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 350", "player.buff(103958)", "!@demofunc.PowerBuff()", "target.debuff(Doom).duration > 61" }},	        -- Cancel Meta under 450 fury if no proc/temp Buff and Doom havepandemic effect
+--{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 100", "player.buff(103958)", "@demofunc.PowerBuff()" }},	        -- Keep Meta Form until we finish all temps Proc
 
 ----Meta Cycle ---------
 {{
@@ -85,6 +93,6 @@ ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0
 --Buffs
 { "6201", {"@demofunc.HealthstoneCharges()","!player.moving", "!modifier.last(6201)" }},
 { "109773", "!player.buff(109773)" },
-{ "30146",  "!pet.alive" },
+{ "30146",  { "!pet.alive", "!modifier.last(30146)" }},
 { "!/cancelaura Metamorphosis" },
 })
