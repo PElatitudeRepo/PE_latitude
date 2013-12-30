@@ -3,11 +3,7 @@
 -- Created on Dec 26th 2013 2:20 pm
 ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0AWarlock-Demonology BETA|r]", {
 
---{ "test",	"@demofunc.PowerBuff()" },
 
-------------- Guld'an logic when x2 charges (pull secquence, or, after long meta transfo -------
---first charges
---wait shadowflame debuff 5s fade to cast last charges
 
 -- Soulstone
 { "20707", { 
@@ -58,8 +54,8 @@ ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0
 
 ------ Meta ---------
 { "103958", 	{ "!player.buff(103958)", "player.demonicfury >= 950" }}, 
-{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 450", "player.buff(103958)", , "!@demofunc.PowerBuff()"}},	    -- Cancel Meta at 450 fury if no proc/temp Buff
-{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 100", "player.buff(103958)", "@demofunc.PowerBuff()" }},	    -- Keep Meta Form until we finish all temps Proc
+{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 450", "player.buff(103958)", "!@demofunc.PowerBuff()" }},	    -- Cancel Meta at 450 fury if no proc/temp Buff
+{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 100", "player.buff(103958)", "@demofunc.PowerBuff()" }},	        -- Keep Meta Form until we finish all temps Proc
 
 ----Meta Cycle ---------
 {{
