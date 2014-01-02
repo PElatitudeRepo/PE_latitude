@@ -3,14 +3,11 @@
 -- Created on Dec 26th 2013 2:20 pm
 ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0AWarlock-Demonology BETA|r]", {
 
-{ "test",	"@demofunc.GuldanDoubleCharges()" },
+--{ "test",	"@demofunc.GuldanDoubleCharges()" },
 
-------------- Guld'an logic when x2 charges (pull secquence, or, after long meta transfo -------
---first charges
---wait shadowflame debuff 5s fade to cast last charges
+
 
 -- Soulstone
-
 { "20707", { 
 		"!mouseover.alive",
 		"mouseover.friend",
@@ -48,41 +45,48 @@ ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0
 { "172", 	"!target.debuff(146739)" },						-- Corruption
 { "111898"},												-- GoServ
 
-
+------------- Guld'an logic when x2 charges (pull secquence, or, after long meta transfo -------
+--{ "105174", { "@demofunc.human()", "@demofunc.GuldanDoubleCharges()" }}, -- cast guldan one time if i've 2 charges, and in human form --
+--{ "!105174", { "@demofunc.human()", "!@demofunc.GuldanDoubleCharges()", "target.debuff(47960).duration <= 3"  }}, --wait shadowflame debuff 3s fade to cast last charges
 
 ---- Metha Pull ----
 { "!/cancelaura Metamorphosis", { "target.debuff(Doom).duration > 61", "target.debuff(146739)", "player.buff(103958)", "player.demonicfury <= 200" }}, 				-- Cancel Meta After Doom Dotting at the pull
-
+{ "!/cancelaura Metamorphosis", { "player.buff(103958)", "!@demofunc.PowerBuff()", "target.debuff(Doom).duration > 61" }},
 {{
 	{ "103958", 		"!player.buff(103958)" } ,												-- Meta
 	{ "!/cast Doom", 	{ "!target.debuff(Doom)", "target.debuff(Doom).duration < 61" }},		-- Doom
-	{ "!/cast Doom", 	"target.debuff(Doom).duration < 61" },									-- Doom Dotting x2 for pandemic effect
+	{ "!/cast Doom", 	"target.debuff(Doom).duration < 61" },
+	{ "6353",	"target.health < 25"},							 -- soulfire
+	{ "103964", "target.debuff(Corruption).duration <= 15" },    -- Touch of Chaos Refresh Corruption before fade
+	{ "103964", "player.moving" }, 								 -- Touch of Chaos when moving to skip SoulFire
+	{ "6353",	"player.buff(122355).count >= 2" },				 -- soufire with proc +25% target life--
+	{ "103964" },												-- Doom Dotting x2 for pandemic effect
 },  { "!target.debuff(Doom)", "target.debuff(146739)" }},
 
 
 ------ Meta ---------
 { "103958", 	{ "!player.buff(103958)", "player.demonicfury >= 950" }}, 
-{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 350", "player.buff(103958)", "!@demofunc.PowerBuff()", "target.debuff(Doom).duration > 61" }},	        -- Cancel Meta under 450 fury if no proc/temp Buff and Doom havepandemic effect
---{ "!/cancelaura Metamorphosis", { "player.demonicfury <= 100", "player.buff(103958)", "@demofunc.PowerBuff()" }},	        -- Keep Meta Form until we finish all temps Proc
+--{ "!/cancelaura Metamorphosis", { "player.buff(103958)", "!@demofunc.PowerBuff()", "target.debuff(Doom).duration > 61" }},	        -- Cancel Meta under 450 fury if no proc/temp Buff and Doom havepandemic effect
 
 ----Meta Cycle ---------
 {{
 	{ "!/cast Doom", "!target.debuff(Doom)" },
 	{ "!/cast Doom", "target.debuff(Doom).duration <= 30" },
 	{ "!/cast Doom", "player.demonicfury < 200" },
-	{ "112092", "target.debuff(Corruption).duration <= 15" },    -- Touch of Chaos Refresh Corruption before fade
-	{ "112092", "player.moving" }, 								 -- Touch of Chaos when moving to skip SoulFire
+	{ "6353",	"target.health < 25"},							 -- soulfire
+	{ "103964", "target.debuff(Corruption).duration <= 15" },    -- Touch of Chaos Refresh Corruption before fade
+	{ "103964", "player.moving" }, 								 -- Touch of Chaos when moving to skip SoulFire
 	{ "6353",	"player.buff(122355).count >= 2" },				 -- soufire with proc +25% target life--
-	{ "112092" }, 												 -- Touch of Chaos
+	{ "103964" }, 												 -- Touch of Chaos
 }, "!@demofunc.human()" },
 
 ----- filer forme humaine -----
 {{
-    { "105174", "@demofunc.human()" },												-- guld'an --
+    { "105174", "@demofunc.human()" },							-- guld'an --
 	{ "77799",  "player.moving" },								-- Moving Human Form --
 	{ "6353",	"target.health < 25"},							-- soulfire
 	{ "6353",	"player.buff(122355).count >= 2" },				-- soufire with proc +25% target life--
-	{ "112092"}, 							                    -- shadowblot si la cible a plus de 25% de vie
+	{ "112092", "target.health > 25"}, 							                    -- shadowblot si la cible a plus de 25% de vie
 }, "@demofunc.human()" },
 
 
