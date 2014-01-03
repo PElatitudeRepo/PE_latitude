@@ -1,15 +1,8 @@
 demofunc = {}  
------- function create healthstone
-function demofunc.HealthstoneCharges()
-	local getHealthstoneCharges = GetItemCount(5512, nil, true)
-	if UnitCastingInfo("player") or UnitChannelInfo("player") then return false end
-	if getHealthstoneCharges < 3 then
-		return true
-	end
-end
 
-function demofunc.PowerBuff()
-	local buffList = {
+
+demofunc.ProcList ={
+	  			
 	  			104423, 			-- Windsong				
 				128985,				-- Blessing of the Celestials
 				33702,				-- Blood Fury
@@ -35,33 +28,65 @@ function demofunc.PowerBuff()
 				80353,				-- Time Warp
 				32182,				-- Heroism
 				90355,				-- Ancient Hysteria
-				
+
+				113861,				-- Dark Soul
 				146197,				-- Essence of Yu'lon
 			    146046,				-- Purified Bindings of Immerseus
-			    145072,				-- Bonus T16 2P
-			    145091,				-- Bonus T16 4P
 			    137592,			    -- Sinister Primal Diamond
 	}
-for buff in pairs(buffList) do
-        if UnitBuff("player", buff) then
-       		return true end
-   		return false
-    end			
-end
 
-function demofunc.human()
-	if GetShapeshiftForm("player") == 0
-	then 
-	return true end
-   	return false
-end
-
-function demofunc.GuldanDoubleCharges()
-	local GulCharges = select(1,GetSpellCharges(105174))
-	if GulCharges == nil then GulCharge = 0 end
-		if GulCharges == 2 then 
+function demofunc.HaveProc(State)
+	for i = 1, #demofunc.ProcList do
+		if UnitBuff("player", GetSpellInfo(demofunc.ProcList[i])) and State == true then
 			return true end
-   	return false
+			if not UnitBuff("player", GetSpellInfo(demofunc.ProcList[i])) and State == false then
+			return true end
+	end
+end
+
+
+
+------ forme humaine -----
+function demofunc.human(State)
+	local form = GetShapeshiftForm("player")
+	if State == true and form == 0
+		then
+		return true end
+	if State == false and form == 1
+	then
+   	return true end
+end
+
+------ Double Charges HOG
+function demofunc.GuldanDoubleCharges(State)
+	local GulCharges = select(1,GetSpellCharges("105174"))
+	if GulCharges == 2 then GuldanDoubleCharges = 1 end
+	if GulCharges == 0 then GuldanDoubleCharges = 0 end
+	
+	if State == false and GuldanDoubleCharges == 0 then return true end		
+	 	while GuldanDoubleCharges > 0  and State == true do
+		return true end
+	end
+
+------ Reload HOG Charge -----
+function demofunc.ReloadHOG(Time)
+	local HoGCD = select(3,GetSpellCharges(105174)) + select(4,GetSpellCharges(105174)) - GetTime()
+	if HoGCD <= Time then
+	   return true end
+end
+
+------ function create healthstone
+function demofunc.HealthstoneCharges()
+	local getHealthstoneCharges = GetItemCount(5512, nil, true)
+	if UnitCastingInfo("player") or UnitChannelInfo("player") then return false end
+	if getHealthstoneCharges < 3 then
+		return true
+	end
 end
 --print("|cff0070dd I have a Proc !!!!")
 ProbablyEngine.library.register("demofunc", demofunc)
+
+
+
+
+
