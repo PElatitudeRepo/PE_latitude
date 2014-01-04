@@ -71,8 +71,12 @@ function demofunc.GuldanDoubleCharges(State)
 ------ Reload HOG Charge -----
 function demofunc.ReloadHOG(Time)
 	local HoGCD = select(3,GetSpellCharges(105174)) + select(4,GetSpellCharges(105174)) - GetTime()
-	if HoGCD <= Time then
-	   return true end
+	local ChargesReload = select(1,GetSpellCharges("105174"))
+	
+	if (ChargesReload == 0 or HoGCD >= Time ) then 
+
+		--print("|cff0070dd je peut cast ma HOG !!!!")	
+		return true end
 end
 
 ------ function create healthstone

@@ -3,8 +3,6 @@
 -- Created on Dec 26th 2013 2:20 pm
 ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0AWarlock-Demonology BETA|r]", {
 
-{ "test",	"@demofunc.ReloadHOG(4)" },
-
 -- Soulstone
 { "20707", { 
 		"!mouseover.alive",
@@ -84,7 +82,7 @@ ProbablyEngine.rotation.register_custom(266, "|r[|cff9482C9Latitude|r][|cffFF7D0
 
 ----- filer forme humaine -----
 {{
-    { "105174" },				-- guld'an --
+    { "105174", "@demofunc.ReloadHOG(4)" },												-- guld'an --
 	{ "!77799",  "player.moving" },								-- Moving Human Form --
 	{ "6353",	"target.health < 25"},							-- soulfire
 	{ "6353",	"player.buff(122355).count >= 2" },				-- soufire with proc +25% target life--
